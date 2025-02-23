@@ -70,21 +70,36 @@ class AddBookFragment : Fragment() {
 
                 Log.d("AddBook", bookData.toString())
 
-//                addBookViewModel.insertNewBook(bookData)
-//                addBookViewModel.result.observe(viewLifecycleOwner) {
-//                    it?.let {
-//                        if(it > 0){
-//                            Toast.makeText(requireContext(), "Insert operation succeed", Toast.LENGTH_SHORT).show()
-//                        } else {
-//                            Toast.makeText(requireContext(), "Insert operation failed", Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
-//                }
+                addBookViewModel.insertNewBook(bookData)
+                addBookViewModel.result.observe(viewLifecycleOwner) {
+                    it?.let {
+                        if(it > 0){
+                            Toast.makeText(requireContext(), "Insert operation succeed", Toast.LENGTH_SHORT).show()
+                            clearAllEditText()
+                        } else {
+                            Toast.makeText(requireContext(), "Insert operation failed", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             } else {
                 Toast.makeText(requireContext(), "Please fill the empty fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
         }
+    }
+
+    private fun clearAllEditText() {
+        binding.tiTitle.editText?.text?.clear()
+        binding.tiAuthor.editText?.text?.clear()
+        binding.tiGenre.editText?.text?.clear()
+        binding.tiTotalPages.editText?.text?.clear()
+        binding.tiCurrentPage.editText?.text?.clear()
+        binding.tiRate.editText?.text?.clear()
+        binding.tiRate.editText?.text?.clear()
+        binding.lpiPage.progress = 0
+        addNote.clear()
+        indexNote = 0
+        binding.rvNote.visibility = View.INVISIBLE
     }
 
     private fun getAdditionalNote(): String {

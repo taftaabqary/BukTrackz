@@ -111,6 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             tools:listitem="@layout/item_book_cover"
+            android:layout_marginHorizontal="8dp"
             tools:orientation="horizontal"
             tools:scrollbars="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

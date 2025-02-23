@@ -7,16 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.unsoed.buktrackz.adapter.BookAdapter
 import com.unsoed.buktrackz.databinding.FragmentHomeBinding
 import com.unsoed.buktrackz.helper.ViewModelFactory
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var bookAdapter: BookAdapter
+    private lateinit var favoriteAdapter: BookAdapter
 
     private val homeViewModel: HomeViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
@@ -37,9 +40,8 @@ class HomeFragment : Fragment() {
         bookAdapter = BookAdapter {}
         binding.rvReadingBook.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvReadingBook.adapter = bookAdapter
-        binding.rvReadingBook.setHasFixedSize(true)
+
         binding.rvFavoriteBook.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvFavoriteBook.adapter = bookAdapter
         setupAllBook()
         setupFavoriteBook()
     }
@@ -49,9 +51,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupAllBook() {
-        homeViewModel.getAllBook().observe(viewLifecycleOwner) { it ->
+        homeViewModel.getAllBook().observe(viewLifecycleOwner) {
             it?.let { pagingData ->
-                bookAdapter.submitData(lifecycle, pagingData)
+                lifecycleScope.launch {
+                    bookAdapter.submitData(pagingData)
+                }
             }
         }
     }
