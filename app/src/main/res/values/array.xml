@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_genre">
+        <item>Diary</item>
+        <item>Historic</item>
+        <item>Finance</item>
+        <item>Anthropology</item>
+        <item>Dystopic</item>
+        <item>Novel</item>
+        <item>Self Growth</item>
+        <item>Fantasy</item>
+    </string-array>
+
+    <string-array name="star">
+        <item>★</item>
+        <item>★★</item>
+        <item>★★★</item>
+        <item>★★★★</item>
+        <item>★★★★★</item>
+    </string-array>
+</resources>

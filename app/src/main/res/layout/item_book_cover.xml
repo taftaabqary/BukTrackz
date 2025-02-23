@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="4dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_book_cover"
+        android:layout_width="140dp"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/cover_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_title_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:fontFamily="@font/manrope_semi_bold"
+        android:textSize="14sp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_book_cover"
+        app:layout_constraintStart_toStartOf="@+id/iv_book_cover"
+        app:layout_constraintTop_toBottomOf="@+id/iv_book_cover"
+        tools:text="The Psychology of Money" />
+
+    <TextView
+        android:id="@+id/tv_author_book"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:fontFamily="@font/manrope_regular"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_title_book"
+        app:layout_constraintStart_toStartOf="@+id/tv_title_book"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_book"
+        tools:text="Muhammad Althaaf Abqary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

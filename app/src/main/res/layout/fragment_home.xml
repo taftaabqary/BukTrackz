@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/manrope_semi_bold"
+            android:text="Where Stories\nCome Alive"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipFilterGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:selectionRequired="true"
+            app:singleLine="true"
+            android:scrollbars="horizontal"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_all"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="all" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_fiction"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fiction" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_fantasy"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fantasy" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_romance"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="romance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_mystery"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mystery" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/tv_reading_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_marginTop="18dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="Your Reading Book"
+            android:fontFamily="@font/manrope_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipFilterGroup" />
+
+        <TextView
+            android:id="@+id/btn_view_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_regular"
+            android:background="@drawable/bg_text_outlined"
+            android:paddingHorizontal="18dp"
+            android:paddingVertical="4dp"
+            android:layout_marginEnd="8dp"
+            android:text="View all"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_reading_book"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_reading_book" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_reading_book"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            tools:listitem="@layout/item_book_cover"
+            tools:orientation="horizontal"
+            tools:scrollbars="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reading_book" />
+
+        <TextView
+            android:id="@+id/tv_favorite_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_marginTop="18dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="Your Favorite Book"
+            android:fontFamily="@font/manrope_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_reading_book" />
+
+        <TextView
+            android:id="@+id/btn_view_all_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_regular"
+            android:background="@drawable/bg_text_outlined"
+            android:paddingHorizontal="18dp"
+            android:paddingVertical="4dp"
+            android:layout_marginEnd="8dp"
+            android:text="View all"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_favorite_book"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_favorite_book" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_favorite_book"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            tools:listitem="@layout/item_book_cover"
+            tools:orientation="horizontal"
+            tools:scrollbars="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_favorite_book" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ti_note"
+    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
+    android:layout_marginTop="4dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:startIconDrawable="@drawable/icon_bullet"
+    android:hint="Note">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_note"
+        android:layout_width="match_parent"
+        android:maxLines="2"
+        android:inputType="textMultiLine"
+        android:fontFamily="@font/manrope_regular"
+        android:layout_height="match_parent"/>
+
+</com.google.android.material.textfield.TextInputLayout>
