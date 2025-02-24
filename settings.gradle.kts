@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "BukTrackz"
 include(":app")
+include(":core")
+include(":favorite")

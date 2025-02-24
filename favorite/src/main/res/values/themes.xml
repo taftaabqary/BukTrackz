@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.BukTrackz.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/manrope_semi_bold</item>
+        <item name="android:fontFamily">@font/manrope_semi_bold</item>
+    </style>
+</resources>

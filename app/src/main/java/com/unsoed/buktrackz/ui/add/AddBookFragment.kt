@@ -8,18 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.unsoed.buktrackz.adapter.NoteAdapter
 import com.unsoed.buktrackz.databinding.FragmentAddBookBinding
-import com.unsoed.buktrackz.domain.entity.Book
-import com.unsoed.buktrackz.domain.entity.Note
-import com.unsoed.buktrackz.helper.ViewModelFactory
-import com.unsoed.buktrackz.utils.DateConverter
+import com.unsoed.core.domain.entity.Book
+import com.unsoed.core.domain.entity.Note
+import com.unsoed.core.adapter.NoteAdapter
+import com.unsoed.core.utils.DateConverter
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddBookFragment : Fragment() {
 
@@ -29,12 +28,10 @@ class AddBookFragment : Fragment() {
     private var dateTime: Long = 0
 
     private lateinit var noteAdapter: NoteAdapter
-    private val addNote: MutableList<Note> = mutableListOf()
+    private val addNote: MutableList<com.unsoed.core.domain.entity.Note> = mutableListOf()
     private var indexNote = 0
 
-    private val addBookViewModel: AddBookViewModel by viewModels {
-        ViewModelFactory.getInstance(requireContext())
-    }
+    private val addBookViewModel: AddBookViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +53,7 @@ class AddBookFragment : Fragment() {
     private fun setupAddBook() {
         binding.btnSave.setOnClickListener {
             if(checkValue()) {
-                val bookData = Book(
+                val bookData = com.unsoed.core.domain.entity.Book(
                     title = binding.tiTitle.editText?.text.toString().trim(),
                     author = binding.tiAuthor.editText?.text.toString().trim(),
                     genre = binding.acGenre.text.toString().trim(),
@@ -222,7 +219,7 @@ class AddBookFragment : Fragment() {
             indexNote++
             binding.rvNote.visibility = View.VISIBLE
             addNote.add(
-                Note(
+                com.unsoed.core.domain.entity.Note(
                     id = indexNote,
                     note = ""
                 )

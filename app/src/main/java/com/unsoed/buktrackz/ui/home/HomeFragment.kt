@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.unsoed.buktrackz.adapter.BookAdapter
 import com.unsoed.buktrackz.databinding.FragmentHomeBinding
-import com.unsoed.buktrackz.helper.ViewModelFactory
+import com.unsoed.core.adapter.BookAdapter
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
@@ -21,9 +21,7 @@ class HomeFragment : Fragment() {
     private lateinit var bookAdapter: BookAdapter
     private lateinit var favoriteAdapter: BookAdapter
 
-    private val homeViewModel: HomeViewModel by viewModels {
-        ViewModelFactory.getInstance(requireContext())
-    }
+    private val homeViewModel: HomeViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,7 +35,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bookAdapter = BookAdapter {}
+        bookAdapter = BookAdapter { id ->
+            val navigation = HomeFragmentDirections.actionNavigationHomeToDetailBookFragment()
+            navigation.idBook = id
+            this@HomeFragment.findNavController().navigate(navigation)
+        }
         binding.rvReadingBook.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvReadingBook.adapter = bookAdapter
 
