@@ -1,15 +1,20 @@
 package com.unsoed.buktrackz.ui.detail
 
 import android.icu.text.DecimalFormat
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.unsoed.buktrackz.R
+import com.unsoed.buktrackz.core.domain.entity.Book
+import com.unsoed.buktrackz.core.utils.DateConverter
 import com.unsoed.buktrackz.databinding.FragmentDetailBookBinding
-import com.unsoed.core.utils.DateConverter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailBookFragment : Fragment() {
@@ -20,7 +25,9 @@ class DetailBookFragment : Fragment() {
     private val detailViewModel: DetailBookViewModel by viewModel()
 
     private var mainClick: Boolean = false
+    private var firstTime: Boolean = true
     private var bookFav: Boolean = false
+    private lateinit var bookData: Book
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,11 +42,21 @@ class DetailBookFragment : Fragment() {
         fabState()
         setupAction()
         val idBook = DetailBookFragmentArgs.fromBundle(arguments as Bundle).idBook
+        Log.d("DetailIdBook", idBook.toString())
         detailViewModel.getBookId(idBook)
         detailViewModel.book.observe(viewLifecycleOwner) { data ->
+            Log.d("DetailIdBook", "Observe??")
+
             data?.let {
                 val progressPercent = (data.currentPages.toDouble() / data.totalPages.toDouble()) * 100
                 val convert = DecimalFormat("#.##").format(progressPercent)
+                Log.d("DetailIdBook", progressPercent.toString())
+
+                if(data.image.isNotEmpty()) {
+                    binding.ivDetailCover.setImageURI(Uri.parse(data.image))
+                } else {
+                    binding.ivDetailCover.setImageResource(R.drawable.cover_book)
+                }
 
                 binding.tvDetailTitle.text = data.title
                 binding.tvDetailAuthor.text = data.author
@@ -53,16 +70,25 @@ class DetailBookFragment : Fragment() {
                 binding.tvDetailNotes.text = getNote(data.note)
                 bookFav = data.isFavorite
                 fabFavoriteState()
+
+                bookData = data
             }
         }
     }
 
     private fun fabFavoriteState() {
         if(bookFav) {
+            if(!firstTime) {
+                Toast.makeText(requireContext(), "Added to favorites", Toast.LENGTH_SHORT).show()
+            }
             binding.fabFavorite.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.icon_fav_full))
         } else {
+            if(!firstTime) {
+                Toast.makeText(requireContext(), "Removed from favorites", Toast.LENGTH_SHORT).show()
+            }
             binding.fabFavorite.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.icon_fav_out))
         }
+
     }
 
     private fun setupAction() {
@@ -78,7 +104,13 @@ class DetailBookFragment : Fragment() {
         binding.fabFavorite.setOnClickListener {
             bookFav = !bookFav
             detailViewModel.updateFavorite(bookFav)
+            firstTime = false
             fabFavoriteState()
+        }
+
+        binding.fabEdit.setOnClickListener {
+            val navigation = DetailBookFragmentDirections.actionDetailBookFragmentToEditBookFragment(bookData)
+            it.findNavController().navigate(navigation)
         }
     }
 
@@ -121,5 +153,4 @@ class DetailBookFragment : Fragment() {
             else -> "No rate"
         }
     }
-
 }

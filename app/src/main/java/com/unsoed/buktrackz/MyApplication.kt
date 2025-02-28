@@ -1,10 +1,12 @@
 package com.unsoed.buktrackz
 
 import android.app.Application
+import com.unsoed.buktrackz.core.di.dataStoreModule
+import com.unsoed.buktrackz.core.di.databaseModule
+import com.unsoed.buktrackz.core.di.repositoryModule
+import com.unsoed.buktrackz.core.di.retrofitModule
 import com.unsoed.buktrackz.ui.di.useCaseModule
 import com.unsoed.buktrackz.ui.di.viewModelModule
-import com.unsoed.core.di.databaseModule
-import com.unsoed.core.di.repositoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -21,7 +23,9 @@ class MyApplication: Application() {
                     useCaseModule,
                     databaseModule,
                     viewModelModule,
-                    repositoryModule
+                    repositoryModule,
+                    retrofitModule,
+                    dataStoreModule
                 )
             )
         }

@@ -43,14 +43,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":core"))
-    implementation(project(":favorite"))
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.activity.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(project(":core2"))
 
-    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.activity.ktx)
+
     implementation(libs.lottie)
 }

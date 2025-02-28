@@ -52,6 +52,10 @@
         <item name="cornerSize">40%</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.BukTrackz.Round" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="ShapeAppearance.BukTrackz.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>

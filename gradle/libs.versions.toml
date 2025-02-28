@@ -1,6 +1,8 @@
 [versions]
 activityKtx = "1.10.0"
 agp = "8.7.3"
+datastorePreferences = "1.1.3"
+glide = "4.16.0"
 insertKoinKoinCore = "3.3.2"
 koin = "3.5.6"
 kotlin = "1.9.24"
@@ -17,7 +19,6 @@ lifecycleViewmodelKtx = "2.6.1"
 navigationFragmentKtx = "2.6.0"
 navigationUiKtx = "2.6.0"
 activity = "1.9.3"
-recyclerviewV7Version = "28.0.0"
 kotlinxCoroutinesCore = "1.5.2"
 kotlinxCoroutinesAndroid = "1.5.2"
 converterGson = "2.9.0"
@@ -31,11 +32,15 @@ room = "2.5.2"
 rxbinding = "2.2.0"
 rxjava = "2.2.21"
 paging3Ktx = "3.3.2"
+fragmentKtx = "1.8.3"
 
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 insert-koin-koin-android = { module = "io.insert-koin:koin-android", version.ref = "insertKoinKoinCore" }
 io-insert-koin-koin-core = { module = "io.insert-koin:koin-core", version.ref = "insertKoinKoinCore" }
 koin-android = { module = "org.koin:koin-android", version.ref = "koin" }

@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.unsoed.buktrackz.core.adapter.NoteAdapter
+import com.unsoed.buktrackz.core.domain.entity.Book
+import com.unsoed.buktrackz.core.domain.entity.Note
+import com.unsoed.buktrackz.core.utils.DateConverter
 import com.unsoed.buktrackz.databinding.FragmentAddBookBinding
-import com.unsoed.core.domain.entity.Book
-import com.unsoed.core.domain.entity.Note
-import com.unsoed.core.adapter.NoteAdapter
-import com.unsoed.core.utils.DateConverter
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,7 +28,7 @@ class AddBookFragment : Fragment() {
     private var dateTime: Long = 0
 
     private lateinit var noteAdapter: NoteAdapter
-    private val addNote: MutableList<com.unsoed.core.domain.entity.Note> = mutableListOf()
+    private val addNote: MutableList<Note> = mutableListOf()
     private var indexNote = 0
 
     private val addBookViewModel: AddBookViewModel by viewModel()
@@ -36,7 +36,7 @@ class AddBookFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAddBookBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,13 +47,12 @@ class AddBookFragment : Fragment() {
         setupProgressBar()
         setupAddBook()
         binding.rvNote.layoutManager = LinearLayoutManager(requireContext())
-
     }
 
     private fun setupAddBook() {
         binding.btnSave.setOnClickListener {
             if(checkValue()) {
-                val bookData = com.unsoed.core.domain.entity.Book(
+                val bookData = Book(
                     title = binding.tiTitle.editText?.text.toString().trim(),
                     author = binding.tiAuthor.editText?.text.toString().trim(),
                     genre = binding.acGenre.text.toString().trim(),
@@ -62,7 +61,7 @@ class AddBookFragment : Fragment() {
                     rate = getStarValue(),
                     lastRead = dateTime,
                     note = getAdditionalNote(),
-                    isFavorite = false
+                    isFavorite = false,
                 )
 
                 Log.d("AddBook", bookData.toString())
@@ -219,7 +218,7 @@ class AddBookFragment : Fragment() {
             indexNote++
             binding.rvNote.visibility = View.VISIBLE
             addNote.add(
-                com.unsoed.core.domain.entity.Note(
+                Note(
                     id = indexNote,
                     note = ""
                 )

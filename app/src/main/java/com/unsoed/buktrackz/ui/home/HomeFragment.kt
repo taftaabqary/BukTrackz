@@ -1,5 +1,7 @@
 package com.unsoed.buktrackz.ui.home
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,8 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.unsoed.buktrackz.core.adapter.BookAdapter
 import com.unsoed.buktrackz.databinding.FragmentHomeBinding
-import com.unsoed.core.adapter.BookAdapter
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -40,16 +42,40 @@ class HomeFragment : Fragment() {
             navigation.idBook = id
             this@HomeFragment.findNavController().navigate(navigation)
         }
+
+        favoriteAdapter = BookAdapter { id ->
+            val navigation = HomeFragmentDirections.actionNavigationHomeToDetailBookFragment()
+            navigation.idBook = id
+            this@HomeFragment.findNavController().navigate(navigation)
+        }
+
         binding.rvReadingBook.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvReadingBook.adapter = bookAdapter
 
         binding.rvFavoriteBook.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvFavoriteBook.adapter = favoriteAdapter
+
         setupAllBook()
         setupFavoriteBook()
+        setupAction()
+    }
+
+    private fun setupAction() {
+        binding.btnViewAllFav.setOnClickListener {
+            val uri = Uri.parse("buktrackz://favorite")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
     }
 
     private fun setupFavoriteBook() {
-
+        homeViewModel.getFavoriteBook().observe(viewLifecycleOwner) {
+            it?.let { pagingData ->
+                lifecycleScope.launch {
+                    favoriteAdapter.submitData(pagingData)
+                }
+            }
+        }
     }
 
     private fun setupAllBook() {

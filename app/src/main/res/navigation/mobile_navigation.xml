@@ -30,11 +30,6 @@
         android:label="fragment_discover"
         tools:layout="@layout/fragment_discover" />
     <fragment
-        android:id="@+id/navigation_favorite"
-        android:name="com.unsoed.buktrackz.ui.favorite.FavoriteFragment"
-        android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
-    <fragment
         android:id="@+id/navigation_setting"
         android:name="com.unsoed.buktrackz.ui.setting.SettingFragment"
         android:label="fragment_setting"
@@ -48,6 +43,18 @@
             android:name="idBook"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_detailBookFragment_to_editBookFragment"
+            app:destination="@id/editBookFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editBookFragment"
+        android:name="com.unsoed.buktrackz.ui.detail.EditBookFragment"
+        android:label="fragment_edit_book"
+        tools:layout="@layout/fragment_edit_book" >
+        <argument
+            android:name="editBook"
+            app:argType="com.unsoed.buktrackz.core.domain.entity.Book" />
     </fragment>
 
 </navigation>
