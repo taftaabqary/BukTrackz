@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.unsoed.buktrackz.core"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -17,8 +17,18 @@ android {
     }
     buildTypes {
         release {
-            isMinifyEnabled = false
-
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        debug {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -35,21 +45,28 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
+    api(libs.androidx.fragment.ktx)
+    api(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.activity)
+    api(libs.androidx.activity)
     api(libs.androidx.navigation.fragment.ktx)
     api(libs.androidx.navigation.ui.ktx)
     api(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.datastore.preferences)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testApi(libs.junit)
+    androidTestApi(libs.androidx.junit)
+    androidTestApi(libs.androidx.espresso.core)
+    debugApi(libs.squareup.leakcanary.android)
+
+    testApi(libs.mockito.core)
+    testApi(libs.mockito.inline)
 
     api(libs.material)
     api(libs.rxjava)
     api(libs.rxbinding)
     implementation(libs.glide)
+    api(libs.lottie)
 
     api(libs.androidx.constraintlayout)
 
@@ -62,6 +79,8 @@ dependencies {
     implementation(libs.logging.interceptor)
     api(libs.androidx.paging3.ktx)
 
+    api(libs.scottyab.rootbeer.lib)
+
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.kotlinx.coroutines.core)
@@ -71,4 +90,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     ksp(libs.room.compiler)
+
+    implementation(libs.android.database.sqlcipher)
+    implementation(libs.androidx.sqlite.ktx)
 }

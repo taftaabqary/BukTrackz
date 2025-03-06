@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.unsoed.buktrackz.core.R
 import com.unsoed.buktrackz.core.databinding.ItemBookBestSellerBinding
 import com.unsoed.buktrackz.core.domain.entity.BookBestSeller
 
@@ -19,7 +20,7 @@ class BestSellerAdapter(private val onItemClick: (String) -> Unit): PagingDataAd
             binding.tvTitleBestSeller.text = item.title
             binding.tvAuthorFavorite.text = item.author
             binding.tvBestSellerDate.text = item.bestSellerDate
-            binding.tvRank.text = "Best Seller #${item.rank}"
+            binding.tvRank.text = itemView.context.getString(R.string.best_seller_text, item.rank)
             binding.tvContributorBestSeller.text = item.contributor
             binding.tvPublisherBestSeller.text = item.publisher
             binding.tvTypeBestSeller.text = item.displayName

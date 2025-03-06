@@ -6,14 +6,16 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.RawQuery
 import androidx.room.Update
+import androidx.sqlite.db.SupportSQLiteQuery
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookDao {
 
-    @Query("SELECT * FROM book")
-    fun getAllBook() : PagingSource<Int, BookEntity>
+    @RawQuery(observedEntities = [BookEntity::class])
+    fun getAllBook(query: SupportSQLiteQuery) : PagingSource<Int, BookEntity>
 
     @Query("SELECT * FROM book WHERE isFavorite = 1")
     fun getFavoriteBook() : PagingSource<Int, BookEntity>

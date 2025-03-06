@@ -37,6 +37,6 @@ data class BookEntity(
     @field:ColumnInfo(name = "isFavorite")
     val isFavorite: Boolean,
 
-    @field:ColumnInfo(name = "image", defaultValue = "")
-    val image: String,
+    @field:ColumnInfo(name = "image", defaultValue = "NULL")
+    val image: String?,
 )

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="best_seller_text">Terlaris #%1$d</string>
+    <string name="image_book_for_cardview">Gambar buku untuk card view</string>
+    <string name="book_image_cover_for_best_seller_card">Sampul Buku untuk card best seller</string>
+    <string name="try_again">Coba Lagi</string>
+    <string name="note">Catatan</string>
+</resources>

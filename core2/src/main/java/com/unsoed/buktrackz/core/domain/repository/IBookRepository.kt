@@ -3,12 +3,13 @@ package com.unsoed.buktrackz.core.domain.repository
 import androidx.paging.PagingData
 import com.unsoed.buktrackz.core.domain.entity.Book
 import com.unsoed.buktrackz.core.domain.entity.BookBestSeller
+import com.unsoed.buktrackz.core.utils.Filter
 import com.unsoed.buktrackz.core.utils.ListBook
 import kotlinx.coroutines.flow.Flow
 
 interface IBookRepository {
 
-    fun getAllBook(): Flow<PagingData<Book>>
+    fun getAllBook(filter: Filter): Flow<PagingData<Book>>
 
     fun getFavoriteBook(): Flow<PagingData<Book>>
 
@@ -27,4 +28,8 @@ interface IBookRepository {
     fun getDisplayUser(): Flow<Boolean>
 
     suspend fun saveDisplayUser(isDisplay: Boolean)
+
+    fun getLanguageUser(): Flow<String>
+
+    suspend fun saveLanguageUser(language: String)
 }

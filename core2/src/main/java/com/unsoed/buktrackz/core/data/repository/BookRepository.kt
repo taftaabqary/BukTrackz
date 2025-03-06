@@ -12,6 +12,8 @@ import com.unsoed.buktrackz.core.domain.entity.Book
 import com.unsoed.buktrackz.core.domain.entity.BookBestSeller
 import com.unsoed.buktrackz.core.domain.repository.IBookRepository
 import com.unsoed.buktrackz.core.utils.Converter
+import com.unsoed.buktrackz.core.utils.Filter
+import com.unsoed.buktrackz.core.utils.FilterQuery
 import com.unsoed.buktrackz.core.utils.ListBook
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -22,14 +24,15 @@ class BookRepository(
     private val dataStore: Preferences
 ): IBookRepository {
 
-    override fun getAllBook(): Flow<PagingData<Book>> {
+    override fun getAllBook(filter: Filter): Flow<PagingData<Book>> {
+        val query = FilterQuery.getRawQuery(filter)
         return Pager(
             config = PagingConfig(
                 enablePlaceholders = PLACEHOLDERS,
                 pageSize = PAGE_SIZE
             ),
             pagingSourceFactory = {
-                bookDao.getAllBook()
+                bookDao.getAllBook(query = query)
             }
         ).flow.map { pagingData ->
             pagingData.map { bookEntity ->
@@ -95,7 +98,15 @@ class BookRepository(
     }
 
     override suspend fun saveDisplayUser(isDisplay: Boolean) {
-        return dataStore.saveDisplayUser(isDisplay)
+        dataStore.saveDisplayUser(isDisplay)
+    }
+
+    override fun getLanguageUser(): Flow<String> {
+        return dataStore.getLanguageUser()
+    }
+
+    override suspend fun saveLanguageUser(language: String) {
+        dataStore.saveLanguageUser(language)
     }
 
     companion object {

@@ -3,7 +3,6 @@ package com.unsoed.buktrackz.ui.discover
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import com.unsoed.buktrackz.R
 import com.unsoed.buktrackz.core.adapter.BestSellerAdapter
 import com.unsoed.buktrackz.core.utils.ListBook
 import com.unsoed.buktrackz.databinding.FragmentDiscoverBinding
@@ -26,7 +26,6 @@ class DiscoverFragment : Fragment() {
 
     private val discoverViewModel: DiscoverViewModel by viewModel()
     private lateinit var bestSellerAdapter: BestSellerAdapter
-    private lateinit var listBookNames: Array<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +37,13 @@ class DiscoverFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("Discover Fragment", "OnViewCreated Discover dibuat")
+        binding.acType.isSaveEnabled = false
+        binding.icDiscover.tvEmpty.text = getString(R.string.empty_discover)
+        binding.icDiscover.emptyStateLayout.visibility = View.VISIBLE
+        setupListType()
+        setupBestSellerBook()
+        observeArrayList()
+
         bestSellerAdapter = BestSellerAdapter { link ->
             val uri = Uri.parse(link)
             val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -46,27 +51,36 @@ class DiscoverFragment : Fragment() {
         }
         binding.rvResultBestSeller.layoutManager = LinearLayoutManager(requireContext())
         binding.rvResultBestSeller.adapter = bestSellerAdapter
+
         bestSellerAdapter.addLoadStateListener { loadState ->
-            if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && bestSellerAdapter.itemCount < 1) {
+                if (loadState.source.refresh is LoadState.Loading) {
+                    binding.lottieLoading.visibility = View.VISIBLE
+                    binding.rvResultBestSeller.visibility = View.GONE
+                } else {
+                    binding.lottieLoading.visibility = View.GONE
+                    binding.rvResultBestSeller.visibility = View.VISIBLE
+                }
+            }
+    }
 
-            } else {
-
+    private fun observeArrayList() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            discoverViewModel.arrayList.collect { data ->
+                (binding.acType as MaterialAutoCompleteTextView).setSimpleItems(data)
             }
         }
-        setupListType()
-        setupBestSellerBook()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        discoverViewModel.loadArrayListBook()
     }
 
     private fun setupListType() {
-        val listBook = ListBook.entries.map {
-            it.display
-        }.toTypedArray()
-        listBookNames = listBook
-
-        (binding.acType as MaterialAutoCompleteTextView).setSimpleItems(listBook)
+        binding.acType.threshold = 1
 
         binding.acType.setOnItemClickListener  { parent, _, position, _ ->
-            Log.d("Discover Fragment", "setOnItemClickListener Discover dibuat")
+            binding.icDiscover.emptyStateLayout.visibility = View.GONE
             val selectedText = parent.getItemAtPosition(position) as String
             val valueBook = ListBook.entries.find { it.display == selectedText }
             discoverViewModel.changeTypeBook(valueBook!!)
@@ -75,7 +89,6 @@ class DiscoverFragment : Fragment() {
 
 
     private fun setupBestSellerBook() {
-        Log.d("Discover Fragment", "setupBestSellerBook Discover dibuat")
         discoverViewModel.typeBook
             .observe(viewLifecycleOwner) {
                 it?.let { pagingData ->
@@ -88,8 +101,7 @@ class DiscoverFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.rvResultBestSeller.adapter = null
         _binding = null
     }
-
-
 }

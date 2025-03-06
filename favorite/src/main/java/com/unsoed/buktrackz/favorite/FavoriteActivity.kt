@@ -10,15 +10,14 @@ import org.koin.core.context.loadKoinModules
 
 class FavoriteActivity : AppCompatActivity() {
 
-    private var _binding: ActivityFavoriteBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityFavoriteBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        _binding = ActivityFavoriteBinding.inflate(layoutInflater)
+        binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets

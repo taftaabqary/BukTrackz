@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp")
-    id("kotlin-parcelize")
     id ("androidx.navigation.safeargs")
 }
 
@@ -22,11 +20,15 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -38,16 +40,11 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
     dynamicFeatures += setOf(":favorite")
 }
 
 dependencies {
     implementation(project(":core2"))
-
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.fragment.ktx)
-    implementation(libs.androidx.activity.ktx)
-
-    implementation(libs.lottie)
 }

@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="0dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="18dp"
+        android:padding="12dp"
         >
 
         <ImageView
             android:id="@+id/iv_setting"
             android:layout_width="wrap_content"
+            android:contentDescription="@string/icon_setting_about"
             android:layout_height="wrap_content"
             tools:src="@drawable/outline_dark_mode_24"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +30,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/manrope_medium"
             tools:text="Dark Mode"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/materialSwitch"
             app:layout_constraintStart_toEndOf="@id/iv_setting"
@@ -41,7 +43,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

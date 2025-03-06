@@ -2,7 +2,6 @@ package com.unsoed.buktrackz.ui.add
 
 import android.icu.text.DecimalFormat
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.unsoed.buktrackz.R
 import com.unsoed.buktrackz.core.adapter.NoteAdapter
 import com.unsoed.buktrackz.core.domain.entity.Book
 import com.unsoed.buktrackz.core.domain.entity.Note
 import com.unsoed.buktrackz.core.utils.DateConverter
+import com.unsoed.buktrackz.core.utils.Event
 import com.unsoed.buktrackz.databinding.FragmentAddBookBinding
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -23,7 +24,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class AddBookFragment : Fragment() {
 
     private var _binding: FragmentAddBookBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() =  _binding!!
     private val compositeDisposable = CompositeDisposable()
     private var dateTime: Long = 0
 
@@ -43,6 +44,8 @@ class AddBookFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.acRate.isSaveEnabled = false
+        binding.acGenre.isSaveEnabled = false
         setupAction()
         setupProgressBar()
         setupAddBook()
@@ -64,23 +67,26 @@ class AddBookFragment : Fragment() {
                     isFavorite = false,
                 )
 
-                Log.d("AddBook", bookData.toString())
-
                 addBookViewModel.insertNewBook(bookData)
                 addBookViewModel.result.observe(viewLifecycleOwner) {
                     it?.let {
-                        if(it > 0){
-                            Toast.makeText(requireContext(), "Insert operation succeed", Toast.LENGTH_SHORT).show()
-                            clearAllEditText()
-                        } else {
-                            Toast.makeText(requireContext(), "Insert operation failed", Toast.LENGTH_SHORT).show()
-                        }
+                        showSnackBar(it)
                     }
                 }
             } else {
                 Toast.makeText(requireContext(), "Please fill the empty fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+        }
+    }
+
+    private fun showSnackBar(id: Event<Long>) {
+        val result = id.getContentIfNotHandled() ?: return
+        if(result > 0){
+            Toast.makeText(requireContext(), "Insert operation succeed", Toast.LENGTH_SHORT).show()
+            clearAllEditText()
+        } else {
+            Toast.makeText(requireContext(), "Insert operation failed", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -95,11 +101,11 @@ class AddBookFragment : Fragment() {
         binding.lpiPage.progress = 0
         addNote.clear()
         indexNote = 0
-        binding.rvNote.visibility = View.INVISIBLE
+        binding.rvNote.visibility = View.GONE
     }
 
-    private fun getAdditionalNote(): String {
-        val noteBuilder = StringBuilder()
+    private fun  getAdditionalNote(): String {
+        val noteBuilder = StringBuilder("")
         addNote.forEach {
             noteBuilder.append("${it.note},")
         }
@@ -134,9 +140,8 @@ class AddBookFragment : Fragment() {
 
     private fun getStarValue(): Int {
         val star = binding.acRate.text.toString()
-        var starValue = 0
 
-        starValue = when(star) {
+        val starValue: Int = when(star) {
             "★" -> 1
             "★★" -> 2
             "★★★" -> 3
@@ -181,16 +186,16 @@ class AddBookFragment : Fragment() {
                 val totalPagesValue = binding.edTotalPage.text!!.toString().toDouble()
                 val currentPagesValue = binding.edCurrentPage.text!!.toString().toDouble()
                 if(currentPagesValue > totalPagesValue) {
-                    binding.tvProgressBar.text = "Progress Bar - 100%"
+                    binding.tvProgressBar.text = getString(R.string.progress_bar_numeric, 100)
                     binding.lpiPage.progress = 100
                 } else {
                     val progressPercent = (currentPagesValue / totalPagesValue) * 100
                     val convert = DecimalFormat("#.##").format(progressPercent)
                     binding.lpiPage.progress = progressPercent.toInt()
-                    binding.tvProgressBar.text = "Progress Bar - $convert%"
+                    binding.tvProgressBar.text = getString(R.string.progress_bar_text, convert)
                 }
             } else {
-                binding.tvProgressBar.text = "Progress Bar"
+                binding.tvProgressBar.text = getString(R.string.progress_text)
                 binding.lpiPage.progress = 0
             }
         }
@@ -240,6 +245,7 @@ class AddBookFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        binding.rvNote.adapter = null
         compositeDisposable.clear()
     }
 }

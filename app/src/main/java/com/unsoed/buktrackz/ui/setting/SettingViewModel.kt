@@ -17,4 +17,14 @@ class SettingViewModel(private val useCase: BookUseCase): ViewModel() {
             useCase.saveDisplayUser(isDarkMode)
         }
     }
+
+    fun getLanguageUser(): LiveData<String> {
+        return useCase.getLanguageUser().asLiveData()
+    }
+
+    fun saveLanguageUser(language: String) {
+        viewModelScope.launch {
+            useCase.saveLanguageUser(language)
+        }
+    }
 }

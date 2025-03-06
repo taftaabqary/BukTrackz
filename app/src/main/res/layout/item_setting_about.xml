@@ -4,19 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="0dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="18dp"
+        android:padding="12dp"
         >
 
         <ImageView
             android:id="@+id/iv_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/icon_setting_about"
             tools:src="@drawable/icon_book"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,16 +31,17 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/manrope_medium"
             tools:text="About App"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/materialSwitch"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_setting"
-            app:layout_constraintTop_toTopOf="@+id/materialSwitch" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_end_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/end_icon_for_item_setting"
             android:src="@drawable/icon_arrow_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

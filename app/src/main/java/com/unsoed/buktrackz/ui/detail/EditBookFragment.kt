@@ -3,7 +3,6 @@ package com.unsoed.buktrackz.ui.detail
 import android.icu.text.DecimalFormat
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.unsoed.buktrackz.R
 import com.unsoed.buktrackz.core.adapter.NoteAdapter
 import com.unsoed.buktrackz.core.domain.entity.Book
 import com.unsoed.buktrackz.core.domain.entity.Note
@@ -98,12 +98,11 @@ class EditBookFragment : Fragment() {
                     lastRead = dateTime,
                     note = getAdditionalNote(),
                     isFavorite = detailBook.isFavorite,
-                    image = currentImageUri.toString()
+                    image = if(currentImageUri != null) currentImageUri.toString() else ""
                 )
 
-                Log.d("AddBook", bookData.toString())
+                if(bookData != detailBook) detailViewModel.updateBook(bookData) else this@EditBookFragment.findNavController().navigateUp()
 
-                detailViewModel.updateBook(bookData)
                 detailViewModel.result.observe(viewLifecycleOwner) {
                     it?.let {
                         if(it > 0){
@@ -215,16 +214,16 @@ class EditBookFragment : Fragment() {
                 val totalPagesValue = binding.edEditTotalPage.text!!.toString().toDouble()
                 val currentPagesValue = binding.edEditCurrentPage.text!!.toString().toDouble()
                 if(currentPagesValue > totalPagesValue) {
-                    binding.tvEditProgressBar.text = "Progress Bar - 100%"
+                    binding.tvEditProgressBar.text = getString(R.string.progress_bar_numeric, 100)
                     binding.lpiEditPage.progress = 100
                 } else {
                     val progressPercent = (currentPagesValue / totalPagesValue) * 100
                     val convert = DecimalFormat("#.##").format(progressPercent)
                     binding.lpiEditPage.progress = progressPercent.toInt()
-                    binding.tvEditProgressBar.text = "Progress Bar - $convert%"
+                    binding.tvEditProgressBar.text = getString(R.string.progress_bar_text, convert)
                 }
             } else {
-                binding.tvEditProgressBar.text = "Progress Bar"
+                binding.tvEditProgressBar.text = getString(R.string.progress_text)
                 binding.lpiEditPage.progress = 0
             }
         }
@@ -236,7 +235,6 @@ class EditBookFragment : Fragment() {
     private fun setupEditData() {
         val progressPercent = (detailBook.currentPages.toDouble() / detailBook.totalPages.toDouble()) * 100
         val convert = DecimalFormat("#.##").format(progressPercent)
-        Log.d("DetailIdBook", progressPercent.toString())
         dateTime = detailBook.lastRead
 
         binding.apply {
@@ -246,8 +244,8 @@ class EditBookFragment : Fragment() {
             tiEditDate.editText?.setText(DateConverter.convertMillisToString(detailBook.lastRead))
             tiEditTotalPages.editText?.setText(String.format("${detailBook.totalPages}"))
             tiEditCurrentPage.editText?.setText(String.format("${detailBook.currentPages}"))
-            acEditRate.setText(getStar(detailBook.rate))
-            tvEditProgressBar.text = "Progress - $convert%"
+            acEditRate.setText(getStar(detailBook.rate), false)
+            tvEditProgressBar.text = getString(R.string.progress_bar_text, convert)
             lpiEditPage.progress = progressPercent.toInt()
             setupNote()
         }
@@ -256,9 +254,7 @@ class EditBookFragment : Fragment() {
     private fun setupNote() {
         binding.rvEditNote.visibility = View.VISIBLE
         val noteData = detailBook.note
-        Log.d("EditBook", noteData)
         noteData.split(",").map { item ->
-            Log.d("EditBookMap", "${item}}")
             if(item.isNotEmpty()) {
                 indexNote++
                 listNote.add(Note(
@@ -284,9 +280,7 @@ class EditBookFragment : Fragment() {
 
     private fun getStarValue(): Int {
         val star = binding.acEditRate.text.toString()
-        var starValue = 0
-
-        starValue = when(star) {
+        val starValue: Int = when(star) {
             "★" -> 1
             "★★" -> 2
             "★★★" -> 3
@@ -311,6 +305,7 @@ class EditBookFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        compositeDisposable.clear()
         _binding = null
     }
 }

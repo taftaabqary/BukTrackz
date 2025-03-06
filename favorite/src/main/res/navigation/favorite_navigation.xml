@@ -22,10 +22,5 @@
         android:id="@+id/detailBookFragment2"
         android:name="com.unsoed.buktrackz.ui.detail.DetailBookFragment"
         android:label="DetailBookFragment"
-        tools:layout="@layout/fragment_detail_book">
-        <argument
-            android:name="idBook"
-            app:argType="integer"
-            android:defaultValue="0" />
-    </fragment>
+        tools:layout="@layout/fragment_detail_book"/>
 </navigation>

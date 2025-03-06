@@ -4,12 +4,13 @@ import androidx.paging.PagingData
 import com.unsoed.buktrackz.core.domain.entity.Book
 import com.unsoed.buktrackz.core.domain.entity.BookBestSeller
 import com.unsoed.buktrackz.core.domain.repository.IBookRepository
+import com.unsoed.buktrackz.core.utils.Filter
 import com.unsoed.buktrackz.core.utils.ListBook
 import kotlinx.coroutines.flow.Flow
 
 class BookInteractor(private val iBookRepository: IBookRepository): BookUseCase {
-    override fun getAllBook(): Flow<PagingData<Book>> {
-        return iBookRepository.getAllBook()
+    override fun getAllBook(filter: Filter): Flow<PagingData<Book>> {
+        return iBookRepository.getAllBook(filter)
     }
 
     override fun getFavoriteBook(): Flow<PagingData<Book>> {
@@ -41,7 +42,15 @@ class BookInteractor(private val iBookRepository: IBookRepository): BookUseCase 
     }
 
     override suspend fun saveDisplayUser(isDisplay: Boolean) {
-        return iBookRepository.saveDisplayUser(isDisplay)
+        iBookRepository.saveDisplayUser(isDisplay)
+    }
+
+    override fun getLanguageUser(): Flow<String> {
+        return iBookRepository.getLanguageUser()
+    }
+
+    override suspend fun saveLanguageUser(language: String) {
+        iBookRepository.saveLanguageUser(language)
     }
 
     override fun getDetailBookById(id: Int): Flow<Book> {

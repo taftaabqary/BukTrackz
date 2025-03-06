@@ -1,5 +1,6 @@
 package com.unsoed.buktrackz.core.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -19,7 +20,7 @@ class BookAdapter(private val onItemClick: (Int) -> Unit): PagingDataAdapter<Boo
             binding.tvAuthorBook.text = item.author
 
             itemView.setOnClickListener {
-                onItemClick(item.id ?: 0)
+                onItemClick(item.id)
             }
         }
     }
@@ -31,6 +32,7 @@ class BookAdapter(private val onItemClick: (Int) -> Unit): PagingDataAdapter<Boo
 
     override fun onBindViewHolder(holder: BookAdapter.BookViewHolder, position: Int) {
         val data = getItem(position)
+        Log.d("HomeFragmentBookAdapter", data.toString())
         if(data != null) {
             holder.bind(data)
         }

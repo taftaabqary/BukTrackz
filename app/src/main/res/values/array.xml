@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="list_genre">
-        <item>Diary</item>
+        <item>Fiction</item>
         <item>Historic</item>
         <item>Finance</item>
         <item>Anthropology</item>

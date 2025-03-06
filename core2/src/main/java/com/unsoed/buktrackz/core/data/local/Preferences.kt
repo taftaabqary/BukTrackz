@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -25,7 +26,20 @@ class Preferences(private val dataStore: DataStore<Preferences>)  {
         }
     }
 
+    fun getLanguageUser(): Flow<String> {
+        return dataStore.data.map { data ->
+            data[LANGUAGE_USER] ?: "en"
+        }
+    }
+
+    suspend fun saveLanguageUser(language: String) {
+        dataStore.edit { data ->
+            data[LANGUAGE_USER] = language
+        }
+    }
+
     companion object {
         private var DISPLAY_USER = booleanPreferencesKey("display_user")
+        private var LANGUAGE_USER = stringPreferencesKey("language_user")
     }
 }

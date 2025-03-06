@@ -30,7 +30,6 @@ class DetailBookViewModel(private val useCase: BookUseCase): ViewModel() {
         }
     }
 
-
     fun updateBook(bookData: Book) {
         viewModelScope.launch {
             _result.value = useCase.updateBook(bookData)
@@ -48,7 +47,7 @@ class DetailBookViewModel(private val useCase: BookUseCase): ViewModel() {
     fun updateFavorite(isFavorite: Boolean) {
         viewModelScope.launch {
             _book.value?.let {
-                useCase.setFavoriteBook(it.id ?: 0, isFavorite)
+                useCase.setFavoriteBook(it.id, isFavorite)
             }
         }
     }

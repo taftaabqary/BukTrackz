@@ -6,76 +6,110 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
+            android:layout_marginHorizontal="18dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/manrope_semi_bold"
-            android:text="Where Stories\nCome Alive"
+            android:text="@string/title_home_text"
             android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipFilterGroup"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            app:selectionRequired="true"
-            app:singleLine="true"
-            android:scrollbars="horizontal"
-            app:singleSelection="true">
+            >
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_all"
-                style="@style/Widget.Material3.Chip.Filter"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipFilterGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="all" />
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="2dp"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                android:scrollbars="horizontal"
+                app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_fiction"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="fiction" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_all"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/all" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_fantasy"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="fantasy" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_fiction"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fiction" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_romance"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="romance" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_historic"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/history" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_mystery"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="mystery" />
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_finance"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/finance" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_anthropology"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/anthropology" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_dystopic"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dystopic" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_novel"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/novel" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_self"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/self_growth" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_fantasy"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fantasy" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/tv_reading_book"
@@ -84,81 +118,86 @@
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:layout_marginTop="18dp"
             android:layout_marginHorizontal="16dp"
-            android:text="Your Reading Book"
+            android:text="@string/tv_reading_book"
             android:fontFamily="@font/manrope_medium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipFilterGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScroll" />
 
-        <TextView
-            android:id="@+id/btn_view_all"
-            android:layout_width="wrap_content"
+        <include
+            android:id="@+id/ic_all"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/manrope_regular"
-            android:background="@drawable/bg_text_outlined"
-            android:paddingHorizontal="18dp"
-            android:paddingVertical="4dp"
-            android:layout_marginEnd="8dp"
-            android:text="View all"
-            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/tv_reading_book"
+            android:gravity="center"
+            layout="@layout/item_empty"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_reading_book" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reading_book"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_reading_book"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
+            android:paddingHorizontal="16dp"
             tools:listitem="@layout/item_book_cover"
-            android:layout_marginHorizontal="8dp"
+            android:clipToPadding="true"
             tools:orientation="horizontal"
             tools:scrollbars="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_reading_book" />
+            tools:itemCount="3" />
 
-        <TextView
-            android:id="@+id/tv_favorite_book"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-            android:layout_marginTop="18dp"
-            android:layout_marginHorizontal="16dp"
-            android:text="Your Favorite Book"
-            android:fontFamily="@font/manrope_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_reading_book" />
+            android:layout_gravity="fill_horizontal"
+            android:paddingVertical="2dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/btn_view_all_fav"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_favorite_book"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:layout_marginHorizontal="14dp"
+                android:layout_weight="1"
+                android:text="@string/tv_favorite_book"
+                android:fontFamily="@font/manrope_medium" />
+
+            <TextView
+                android:id="@+id/btn_view_all_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_regular"
+                android:background="@drawable/bg_text_outlined"
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="6dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/view_all"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/ic_fav"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/manrope_regular"
-            android:background="@drawable/bg_text_outlined"
-            android:paddingHorizontal="18dp"
-            android:paddingVertical="4dp"
-            android:layout_marginEnd="8dp"
-            android:text="View all"
-            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/tv_favorite_book"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_favorite_book" />
+            android:gravity="center"
+            layout="@layout/item_empty"
+            android:orientation="vertical" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_favorite_book"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:paddingHorizontal="16dp"
+            android:clipToPadding="true"
             tools:listitem="@layout/item_book_cover"
             tools:orientation="horizontal"
             tools:scrollbars="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_favorite_book" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+           />
+    </LinearLayout>
 </ScrollView>

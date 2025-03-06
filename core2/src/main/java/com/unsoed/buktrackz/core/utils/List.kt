@@ -26,10 +26,4 @@ enum class ListBook(val key: String, val display: String) {
     PAPERBACK_BOOKS("paperback-books", "Paperback Books"),
     PICTURE_BOOKS("picture-books", "Picture Books"),
     SERIES_BOOKS("series-books", "Series Books");
-
-    companion object {
-        fun getKeyTypesBook(name: String): String {
-            return entries.find { it.display == name }?.key ?: ""
-        }
-    }
 }

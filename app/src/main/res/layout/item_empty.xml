@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/emptyStateLayout"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:visibility="gone"
+    tools:visibility="visible"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationLoading"
+        android:layout_width="180dp"
+        android:layout_height="160dp"
+        android:layout_gravity="center"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/empty"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_empty"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/manrope_medium"
+        tools:text="No books available. Try adding some!"/>
+</LinearLayout>

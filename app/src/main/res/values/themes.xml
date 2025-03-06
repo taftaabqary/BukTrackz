@@ -48,10 +48,6 @@
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.BukTrackz.CornerSizePercent" parent="">
-        <item name="cornerSize">40%</item>
-    </style>
-
     <style name="ShapeAppearanceOverlay.BukTrackz.Round" parent="">
         <item name="cornerSize">50%</item>
     </style>
@@ -62,6 +58,11 @@
     </style>
 
     <style name="TextAppearance.BukTrackz.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="fontFamily">@font/manrope_regular</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+    </style>
+
+    <style name="TextAppearance.BukTrackz.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
         <item name="fontFamily">@font/manrope_regular</item>
         <item name="android:fontFamily">@font/manrope_regular</item>
     </style>

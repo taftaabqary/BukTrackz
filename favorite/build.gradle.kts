@@ -7,7 +7,7 @@ plugins {
 }
 android {
     namespace = "com.unsoed.buktrackz.favorite"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -16,10 +16,6 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     compileOptions {
@@ -37,9 +33,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.fragment.ktx)
-    implementation(libs.androidx.activity.ktx)
     implementation(project(":core2"))
     implementation(project(":app"))
 

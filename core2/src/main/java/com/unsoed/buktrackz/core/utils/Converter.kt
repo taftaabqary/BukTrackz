@@ -6,19 +6,19 @@ import com.unsoed.buktrackz.core.domain.entity.Book
 import com.unsoed.buktrackz.core.domain.entity.BookBestSeller
 
 object Converter {
-    fun convertEntityToDomain(bookEntity: BookEntity): Book {
+    fun convertEntityToDomain(bookEntity: BookEntity?): Book {
         return Book(
-            id = bookEntity.id,
-            title = bookEntity.title,
-            author = bookEntity.author,
-            genre = bookEntity.genre,
-            totalPages = bookEntity.totalPages,
-            currentPages = bookEntity.currentPages,
-            rate = bookEntity.rate,
-            lastRead = bookEntity.lastRead,
-            note = bookEntity.note,
-            isFavorite = bookEntity.isFavorite,
-            image = bookEntity.image
+            id = bookEntity?.id ?: 0,
+            title = bookEntity?.title ?: "",
+            author = bookEntity?.author ?: "",
+            genre = bookEntity?.genre ?: "",
+            totalPages = bookEntity?.totalPages ?: 0,
+            currentPages = bookEntity?.currentPages ?: 0,
+            rate = bookEntity?.rate ?: 0,
+            lastRead = bookEntity?.lastRead ?: 0,
+            note = bookEntity?.note ?: "",
+            isFavorite = bookEntity?.isFavorite ?: false,
+            image = bookEntity?.image ?: ""
         )
     }
 

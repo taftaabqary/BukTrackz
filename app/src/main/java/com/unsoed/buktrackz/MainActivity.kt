@@ -2,11 +2,13 @@ package com.unsoed.buktrackz
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.scottyab.rootbeer.RootBeer
 import com.unsoed.buktrackz.databinding.ActivityMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,6 +22,13 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val rootBeer = RootBeer(this)
+        rootBeer.setLogging(true)
+        if (rootBeer.detectRootManagementApps() || rootBeer.detectPotentiallyDangerousApps() || rootBeer.checkForDangerousProps()) {
+            Toast.makeText(this, "Device is rooted with bypass! Exiting app...", Toast.LENGTH_LONG).show()
+            finish()
+        }
 
         val navView: BottomNavigationView = binding.navView
 
