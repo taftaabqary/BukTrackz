@@ -34,7 +34,7 @@ jobs:
 
       - run:
           name: Run Build
-          command: ./gradlew build
+          command: ./gradlew build --stacktrace --info
 
       - store_artifacts: 
           path: app/build/reports
