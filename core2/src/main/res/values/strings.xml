@@ -1,0 +1,7 @@
+<resources>
+    <string name="best_seller_text">Best Seller #%1$d</string>
+    <string name="image_book_for_cardview">image book for cardview</string>
+    <string name="book_image_cover_for_best_seller_card">Book Image cover for best seller card</string>
+    <string name="try_again">Try Again</string>
+    <string name="note">Note</string>
+</resources>
