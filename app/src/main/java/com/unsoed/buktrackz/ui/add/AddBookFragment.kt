@@ -24,7 +24,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class AddBookFragment : Fragment() {
 
     private var _binding: FragmentAddBookBinding? = null
-    private val binding get() =  _binding!!
+    private val binding get() = _binding!!
     private val compositeDisposable = CompositeDisposable()
     private var dateTime: Long = 0
 
@@ -54,7 +54,7 @@ class AddBookFragment : Fragment() {
 
     private fun setupAddBook() {
         binding.btnSave.setOnClickListener {
-            if(checkValue()) {
+            if (checkValue()) {
                 val bookData = Book(
                     title = binding.tiTitle.editText?.text.toString().trim(),
                     author = binding.tiAuthor.editText?.text.toString().trim(),
@@ -74,7 +74,8 @@ class AddBookFragment : Fragment() {
                     }
                 }
             } else {
-                Toast.makeText(requireContext(), "Please fill the empty fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Please fill the empty fields", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
         }
@@ -82,7 +83,7 @@ class AddBookFragment : Fragment() {
 
     private fun showSnackBar(id: Event<Long>) {
         val result = id.getContentIfNotHandled() ?: return
-        if(result > 0){
+        if (result > 0) {
             Toast.makeText(requireContext(), "Insert operation succeed", Toast.LENGTH_SHORT).show()
             clearAllEditText()
         } else {
@@ -96,7 +97,7 @@ class AddBookFragment : Fragment() {
         binding.tiGenre.editText?.text?.clear()
         binding.tiTotalPages.editText?.text?.clear()
         binding.tiCurrentPage.editText?.text?.clear()
-        binding.tiRate.editText?.text?.clear()
+        binding.tiDate.editText?.text?.clear()
         binding.tiRate.editText?.text?.clear()
         binding.lpiPage.progress = 0
         addNote.clear()
@@ -104,7 +105,7 @@ class AddBookFragment : Fragment() {
         binding.rvNote.visibility = View.GONE
     }
 
-    private fun  getAdditionalNote(): String {
+    private fun getAdditionalNote(): String {
         val noteBuilder = StringBuilder("")
         addNote.forEach {
             noteBuilder.append("${it.note},")
@@ -123,11 +124,20 @@ class AddBookFragment : Fragment() {
         val rateValue = getStarValue()
         val lastReadValue = binding.tiDate.editText?.text.toString().trim()
 
+        binding.tiTitle.error = null
+        binding.tiAuthor.error = null
+        binding.tiGenre.error = null
+        binding.tiTotalPages.error = null
+        binding.tiCurrentPage.error = null
+        binding.tiDate.error = null
+        binding.tiRate.error = null
+        binding.tiGenre.error = null
+
         when {
             titleValue.isEmpty() -> binding.tiTitle.error = "Insert value"
             authorValue.isEmpty() -> binding.tiAuthor.error = "Insert value"
             genreValue.isEmpty() -> binding.tiGenre.error = "Insert value"
-            totalValue.isEmpty() && totalValue.toInt() > 0 -> binding.tiTotalPages.error = "Insert value"
+            totalValue.isEmpty() -> binding.tiTotalPages.error = "Insert value"
             currentValue.isEmpty() -> binding.tiCurrentPage.error = "Insert value"
             lastReadValue.isEmpty() -> binding.tiDate.error = "Insert value"
             rateValue < 0 -> binding.tiRate.error = "Insert value"
@@ -141,7 +151,7 @@ class AddBookFragment : Fragment() {
     private fun getStarValue(): Int {
         val star = binding.acRate.text.toString()
 
-        val starValue: Int = when(star) {
+        val starValue: Int = when (star) {
             "★" -> 1
             "★★" -> 2
             "★★★" -> 3
@@ -167,11 +177,11 @@ class AddBookFragment : Fragment() {
             }
 
         val totalPageSubscribe = totalPagesStream.subscribe { valid ->
-            binding.tiTotalPages.helperText = if(!valid) "Insert total pages" else null
+            binding.tiTotalPages.helperText = if (!valid) "Insert total pages" else null
         }
 
         val currentPageSubscribe = currentPagesStream.subscribe { valid ->
-            binding.tiCurrentPage.helperText = if(!valid) "Insert current pages" else null
+            binding.tiCurrentPage.helperText = if (!valid) "Insert current pages" else null
         }
 
         val validProgressBar = Observable.combineLatest(
@@ -182,10 +192,10 @@ class AddBookFragment : Fragment() {
         }
 
         val validProgressSubscribe = validProgressBar.subscribe { isValid ->
-            if(isValid) {
+            if (isValid) {
                 val totalPagesValue = binding.edTotalPage.text!!.toString().toDouble()
                 val currentPagesValue = binding.edCurrentPage.text!!.toString().toDouble()
-                if(currentPagesValue > totalPagesValue) {
+                if (currentPagesValue > totalPagesValue) {
                     binding.tvProgressBar.text = getString(R.string.progress_bar_numeric, 100)
                     binding.lpiPage.progress = 100
                 } else {
